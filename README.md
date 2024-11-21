@@ -1,2 +1,1 @@
-# teste_tecnico_full_stack
-uma aplicação conceito onde o usuário poderá solicitar uma viagem em carro particular de um ponto A até um ponto B. Ele poderá escolher entre algumas opções de motoristas e valores e confirmar a viagem. Depois também poderá listar o histórico das viagens realizadas.
+# a concept application where the user can request a trip in a private car from point A to point B. They can choose between some driver options and prices and confirm the trip. He can then also list the history of the trips made.
