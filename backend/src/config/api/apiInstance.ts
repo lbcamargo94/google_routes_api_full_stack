@@ -1,10 +1,13 @@
 import axios from "axios";
 
-const API_URL = process.env.API_URL;
-const API_KEY = process.env.API_KEY;
+const GOOGLE_API_URL =
+  process.env.GOOGLE_API_URL ||
+  "https://routes.googleapis.com/directions/v2:computeRoutes?key=";
+
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
 const apiInstance = axios.create({
-  baseURL: `${API_URL}${API_KEY}`,
+  baseURL: `${GOOGLE_API_URL}${GOOGLE_API_KEY}`,
 });
 
 export { apiInstance };
