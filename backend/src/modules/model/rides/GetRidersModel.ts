@@ -1,0 +1,3 @@
+class GetRidersModel {}
+
+export { GetRidersModel };

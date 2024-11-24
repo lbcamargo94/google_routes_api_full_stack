@@ -15,7 +15,7 @@ class GetCustomerModel {
       cus.name,
       cus.customer_id
       -- FROM
-      from customer cus
+      from customers cus
       -- WHERE
       where cus.email::text = ${email}
     `;

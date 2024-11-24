@@ -1,6 +1,6 @@
 import { ApiError } from "@erro/index";
-import { CreateCustomerModel } from "@model/customers/CreateCustomerModel";
-import { GetCustomerModel } from "@model/customers/GetCustomerModel";
+import { CreateCustomerModel } from "@model/customers/CreateCustomersModel";
+import { GetCustomerModel } from "@model/customers/GetCustomersModel";
 import { generateCustomerId } from "@utils/GenerateGenericId";
 
 class CreateCustomerService {

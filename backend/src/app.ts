@@ -1,10 +1,14 @@
 import "express-async-errors";
+import * as dotenv from "dotenv";
+import HandleError from "@middleware/errors";
+import cors from "cors";
 import express from "express";
 import helmet from "helmet";
-import cors from "cors";
+import path from "node:path";
 import { CorsOptions } from "@config/server/CorsConfig";
 import { Routes } from "./routes";
-import HandleError from "@middleware/errors";
+
+dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 const { handleError } = new HandleError();
 const app: express.Express = express();
