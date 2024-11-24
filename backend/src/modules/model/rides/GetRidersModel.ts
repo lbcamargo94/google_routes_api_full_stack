@@ -27,15 +27,9 @@ class GetRidersModel {
   }) {
     const result = await database.ride.findMany({
       where: {
-        OR: [
-          {
-            customer_id,
-          },
-          {
-            customer_id,
-            driver_id: filter,
-          },
-        ],
+        customer_id,
+        // driver_id: filter,
+        ...(filter ? { driver_id: filter } : {}),
       },
       orderBy: {
         created_at: "desc",
