@@ -15,8 +15,8 @@ async function main() {
     data: DataSeedDrivers,
   });
 
-  // // Trips
-  const seed_rides = database.trip.createMany({
+  // // Rides
+  const seed_rides = database.ride.createMany({
     data: DataSeedRides,
   });
 

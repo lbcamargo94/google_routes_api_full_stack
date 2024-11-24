@@ -4,11 +4,6 @@ import { z } from "zod";
 class CreateCustomersSchema {
   public CreateCustomers() {
     return z.object({
-      customer_id: z.number({
-        required_error: "O id do cliente é obrigatório.",
-        invalid_type_error: "O id de cliente não tem o tipo correto.",
-      }),
-
       email: z
         .string({
           required_error: "O email do cliente é obrigatório.",

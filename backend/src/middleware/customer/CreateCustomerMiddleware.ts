@@ -8,7 +8,7 @@ class CreateCustomerMiddleware {
     request: Request,
     _response: Response,
     next: NextFunction,
-  ) {
+  ): Promise<void> {
     const customersSchema = new CreateCustomersSchema();
     const typeCustomersSchema = customersSchema.CreateCustomers();
 
@@ -24,6 +24,7 @@ class CreateCustomerMiddleware {
     const result = typeCustomersSchema.safeParse(
       formatRequest as CreateCustomerType,
     );
+
     if (!result.success) {
       throw new ApiError(result.error.issues[0].message, 400);
     }

@@ -1,7 +1,6 @@
 import { ApiError } from "@erro/index";
 import { CreateCustomerModel } from "@model/customers/CreateCustomersModel";
 import { GetCustomerModel } from "@model/customers/GetCustomersModel";
-import { generateCustomerId } from "@utils/GenerateGenericId";
 
 class CreateCustomerService {
   public async CreateCustomers({
@@ -27,13 +26,10 @@ class CreateCustomerService {
       );
     }
 
-    const customer_id: number = generateCustomerId();
-
     const createCustomerModel = new CreateCustomerModel();
     const createCustomer = await createCustomerModel.CreateCustomers({
       name,
       email,
-      customer_id,
     });
 
     return {

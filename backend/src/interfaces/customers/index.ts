@@ -1,8 +1,12 @@
 interface ICustomers {
-  id: string;
+  id: number;
   email: string;
   name: string;
-  customer_id: number;
 }
 
-export type { ICustomers };
+interface ICreateCustomers {
+  email: string;
+  name: string;
+}
+
+export type { ICustomers, ICreateCustomers };

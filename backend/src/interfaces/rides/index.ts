@@ -1,12 +1,14 @@
+import { Interface } from "readline";
+
 interface IRides {
   id: string;
   destination: string;
   distance: number;
-  driver_id: string;
+  driver_id: number;
   duration: string;
   origin: string;
   price: number;
-  customer_id: string;
+  customer_id: number;
 }
 
 interface IEstimateRides {
@@ -60,4 +62,27 @@ interface IEstimateRides {
   };
 }
 
-export type { IRides, IEstimateRides };
+interface IUpdateRides {
+  customer_id: string;
+  origin: string;
+  destination: string;
+  distance: number;
+  duration: string;
+  driver: {
+    id: number;
+    name: string;
+  };
+  value: number;
+}
+
+interface ICreateRide {
+  customer_id: number;
+  destination: string;
+  distance: number;
+  driver_id: number;
+  duration: string;
+  origin: string;
+  value: number;
+}
+
+export type { IRides, IEstimateRides, IUpdateRides, ICreateRide };

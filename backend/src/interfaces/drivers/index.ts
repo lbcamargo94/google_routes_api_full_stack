@@ -1,7 +1,6 @@
 interface IDrivers {
-  id: string;
+  id: number;
   description: string;
-  driver_id: number;
   minimum_distance: number;
   name: string;
   rating: number;

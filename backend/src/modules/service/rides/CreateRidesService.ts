@@ -35,15 +35,11 @@ class CreateRidesService {
       throw new ApiError("O id de usuário fornecido é inválido.", 400);
     }
 
-    // console.log({ customer_id, origin, destination });
-
     const googleRoutesApi = new GoogleRoutesApi();
     const calculateRoute = await googleRoutesApi.getRoutes({
       origin,
       destination,
     });
-
-    console.log({ calculateRoute });
 
     if (!calculateRoute) {
       throw new ApiError("Não foi possível calcular a rota.", 400);
@@ -62,11 +58,11 @@ class CreateRidesService {
 
         if (distanceKm >= currentValue.minimum_distance) {
           const calculatePrice = Number(
-            (distanceKm / currentValue.rating).toFixed(2),
+            (distanceKm * currentValue.rating).toFixed(2),
           );
 
           accumulator.push({
-            id: currentValue.driver_id,
+            id: currentValue.id,
             description: currentValue.description,
             name: currentValue.name,
             review: {
@@ -89,8 +85,6 @@ class CreateRidesService {
         vehicle: string;
       }[],
     );
-
-    console.log({ validateRidesDrivers });
 
     const formatResponse: IEstimateRides = {
       origin: {

@@ -1,21 +1,40 @@
 import { database } from "@database/connection";
 
 class GetDriversModel {
-  public async GetDriverByDriverId({ driver_id }: { driver_id: number }) {
-    const result = await database.$queryRaw`
+  public async GetDriverByDriverId({
+    driver_id,
+  }: {
+    driver_id: number;
+  }): Promise<
+    {
+      id: number;
+      name: string;
+      destination: string;
+      vehicle: string;
+      rating: number;
+      minimum_distance: number;
+    }[]
+  > {
+    const result: {
+      id: number;
+      name: string;
+      destination: string;
+      vehicle: string;
+      rating: number;
+      minimum_distance: number;
+    }[] = await database.$queryRaw`
     -- SELECT
     select distinct
     dv.id,
     dv.name,
-    dv.destination,
+    dv.description,
     dv.vehicle,
     dv.rating,
-    dv.minimum_distance,
-    dv.driver_id
+    dv.minimum_distance
     -- FROM
-    from drives dv
+    from drivers dv
     -- WHERE
-    where dv.driver_id = ${driver_id}
+    where dv.id = ${driver_id}
     `;
 
     return result;
@@ -26,7 +45,6 @@ class GetDriversModel {
       select: {
         id: true,
         description: true,
-        driver_id: true,
         minimum_distance: true,
         name: true,
         rating: true,

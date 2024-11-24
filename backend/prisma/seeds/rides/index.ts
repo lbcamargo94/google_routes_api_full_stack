@@ -1,7 +1,7 @@
 const DataSeedRides: {
-  id: string;
-  customer_id: string;
-  driver_id: string;
+  id: number;
+  customer_id: number;
+  driver_id: number;
   origin: string;
   destination: string;
   duration: string;

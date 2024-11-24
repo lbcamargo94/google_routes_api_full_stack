@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 class UpdateRidesSchema {
-  public updateRides() {
+  public UpdateRides() {
     return z.object({
       customer_id: z.string({
         required_error: "O id de cliente é obrigatório.",

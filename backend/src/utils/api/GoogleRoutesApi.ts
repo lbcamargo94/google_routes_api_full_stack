@@ -46,8 +46,6 @@ class GoogleRoutesApi {
     origin: string;
     destination: string;
   }): Promise<GoogleRoutesResponse> {
-    console.log({ origin, destination });
-
     const data = {
       origin: { address: origin },
       destination: { address: destination },

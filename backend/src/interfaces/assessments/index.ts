@@ -1,9 +1,9 @@
 interface IAssessments {
-  id: string;
+  id: number;
   comment: string;
-  driver_id: string;
+  customer_id: number;
+  driver_id: number;
   evaluation_rate: number;
-  customer_id: string;
 }
 
 export type { IAssessments };
