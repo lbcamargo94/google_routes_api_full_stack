@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-class CreateTripsSchema {
-  public CreateTrips() {
+class CreateRidesSchema {
+  public CreateRides() {
     return z.object({
       destination: z.string({
         required_error:
@@ -42,4 +42,4 @@ class CreateTripsSchema {
   }
 }
 
-export { CreateTripsSchema };
+export { CreateRidesSchema };

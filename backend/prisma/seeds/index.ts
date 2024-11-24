@@ -1,7 +1,7 @@
 import { database } from "@database/connection";
 import { DataSeedCustomers } from "./customers";
 import { DataSeedDrivers } from "./drivers";
-import { DataSeedTrips } from "./trips";
+import { DataSeedRides } from "./rides";
 import { DataSeedAssessments } from "./assessments";
 
 async function main() {
@@ -16,8 +16,8 @@ async function main() {
   });
 
   // // Trips
-  const seed_trips = database.trip.createMany({
-    data: DataSeedTrips,
+  const seed_rides = database.trip.createMany({
+    data: DataSeedRides,
   });
 
   // // Assessment
@@ -26,11 +26,11 @@ async function main() {
   });
 
   // Generate Seeds
-  if (seed_customers && seed_drivers && seed_trips && seed_assessment) {
+  if (seed_customers && seed_drivers && seed_rides && seed_assessment) {
     await database.$transaction([
       seed_customers,
       seed_drivers,
-      seed_trips,
+      seed_rides,
       seed_assessment,
     ]);
   }

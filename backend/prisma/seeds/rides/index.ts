@@ -1,4 +1,4 @@
-const DataSeedTrips: {
+const DataSeedRides: {
   id: string;
   customer_id: string;
   driver_id: string;
@@ -19,4 +19,4 @@ const DataSeedTrips: {
   //   distance: 125,
   // },
 ];
-export { DataSeedTrips };
+export { DataSeedRides };

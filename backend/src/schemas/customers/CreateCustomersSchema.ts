@@ -1,10 +1,10 @@
 import { REGEX_EMAIL_VALIDATION } from "@utils/Contants";
 import { z } from "zod";
 
-class CreateUsersSchema {
-  public createUsers() {
+class CreateCustomersSchema {
+  public CreateCustomers() {
     return z.object({
-      customer_id: z.string({
+      customer_id: z.number({
         required_error: "O id do cliente é obrigatório.",
         invalid_type_error: "O id de cliente não tem o tipo correto.",
       }),
@@ -36,4 +36,4 @@ class CreateUsersSchema {
   }
 }
 
-export { CreateUsersSchema };
+export { CreateCustomersSchema };

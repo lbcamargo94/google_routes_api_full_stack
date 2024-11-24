@@ -22,8 +22,8 @@ model Customer {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  trips      Trip[]
-  Assessment Assessment[]
+  rides      Ride[]
+  assessment Assessment[]
 
   @@map("customers")
 }
@@ -40,8 +40,8 @@ model Driver {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  trips      Trip[]
-  Assessment Assessment[]
+  rides      Ride[]
+  assessment Assessment[]
 
   @@map("drivers")
 }
@@ -62,7 +62,7 @@ model Assessment {
   @@map("assessments")
 }
 
-model Trip {
+model Ride {
   id          String @id @unique @default(uuid()) @db.Uuid
   customer_id String @db.Uuid
   destination String @db.VarChar()
@@ -78,5 +78,5 @@ model Trip {
   drivers   Driver   @relation(fields: [driver_id], references: [id])
   customers Customer @relation(fields: [customer_id], references: [id])
 
-  @@map("trips")
+  @@map("rides")
 }

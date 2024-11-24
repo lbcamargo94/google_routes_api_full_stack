@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-class UpdateTripsSchema {
-  public updateTrips() {
+class UpdateRidesSchema {
+  public updateRides() {
     return z.object({
       customer_id: z.string({
         required_error: "O id de cliente é obrigatório.",
@@ -48,4 +48,4 @@ class UpdateTripsSchema {
   }
 }
 
-export { UpdateTripsSchema };
+export { UpdateRidesSchema };

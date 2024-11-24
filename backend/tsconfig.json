@@ -27,9 +27,10 @@
       "@middleware/*": ["src/middleware/*"],
       "@model/*": ["src/modules/model/*"],
       "@routes/*": ["src/routes/*"],
+      "@schemas/*": ["src/schemas/*"],
       "@service/*": ["src/modules/service/*"],
       "@test/*": ["src/test/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
     },
     "strictPropertyInitialization": false
   }
