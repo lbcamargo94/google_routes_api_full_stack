@@ -19,6 +19,9 @@
     "test": "jest",
     "update:all": "npm outdated & npm update & npx npm-check-updates -u & npm install"
   },
+  "prisma": {
+    "seed": "ts-node -r tsconfig-paths/register prisma/seeds/index.ts"
+  },
   "keywords": [],
   "author": "lbcamargo94",
   "license": "ISC",

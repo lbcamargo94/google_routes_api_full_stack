@@ -10,17 +10,17 @@ async function main() {
     data: DataSeedCustomers,
   });
 
-  // Drivers
+  // // Drivers
   const seed_drivers = database.driver.createMany({
     data: DataSeedDrivers,
   });
 
-  // Trips
+  // // Trips
   const seed_trips = database.trip.createMany({
     data: DataSeedTrips,
   });
 
-  // Assessment
+  // // Assessment
   const seed_assessment = database.assessment.createMany({
     data: DataSeedAssessments,
   });

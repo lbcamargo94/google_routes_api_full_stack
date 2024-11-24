@@ -1,6 +1,6 @@
 const DataSeedTrips: {
   id: string;
-  user_id: string;
+  customer_id: string;
   driver_id: string;
   origin: string;
   destination: string;
