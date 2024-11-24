@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
 const GOOGLE_API_URL =
   process.env.GOOGLE_API_URL ||
@@ -6,7 +6,7 @@ const GOOGLE_API_URL =
 
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
-const apiInstance = axios.create({
+const apiInstance: AxiosInstance = axios.create({
   baseURL: `${GOOGLE_API_URL}${GOOGLE_API_KEY}`,
 });
 
