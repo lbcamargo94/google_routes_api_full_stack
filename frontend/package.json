@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "commit": "git add . & git status && gitmoji -c"
+    "commit": "git add . & git status && git commit -m",
+    "commit:count": "git rev-list --all --count"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.0",
