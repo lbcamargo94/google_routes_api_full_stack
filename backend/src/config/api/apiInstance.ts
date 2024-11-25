@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { type AxiosInstance } from "axios";
 
 const GOOGLE_API_URL =
   process.env.GOOGLE_API_URL ||

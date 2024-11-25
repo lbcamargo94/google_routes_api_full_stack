@@ -13,7 +13,8 @@ dotenv.config({ path: path.join(__dirname, "..", ".env") });
 const { handleError } = new HandleError();
 const app: express.Express = express();
 
-app.use(cors(CorsOptions));
+app.options("*", cors(CorsOptions));
+// app.use(cors(CorsOptions));
 app.use(helmet());
 app.use(express.json());
 app.use(Routes);

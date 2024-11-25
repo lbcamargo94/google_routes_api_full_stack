@@ -1,6 +1,6 @@
 import { apiInstance } from "@config/api/apiInstance";
 import { ApiError } from "@erro/index";
-import { AxiosInstance, AxiosResponse } from "axios";
+import type { AxiosInstance, AxiosResponse } from "axios";
 
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || "";
 

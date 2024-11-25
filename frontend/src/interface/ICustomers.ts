@@ -4,4 +4,9 @@ interface ICustomers {
   email: string;
 }
 
-export type { ICustomers };
+interface ICreateCustomer {
+  name: string;
+  email: string;
+}
+
+export type { ICustomers, ICreateCustomer };

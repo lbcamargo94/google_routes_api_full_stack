@@ -12,8 +12,7 @@ class GetCustomerModel {
       select distinct
       cus.id,
       cus.email,
-      cus.name,
-      cus.customer_id
+      cus.name
       -- FROM
       from customers cus
       -- WHERE

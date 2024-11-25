@@ -1,12 +1,9 @@
+import type { ICustomers } from "@/interface/ICustomers";
 import { create } from "zustand";
-import { ICustomers } from "@/interface/ICustomers";
 
 const customersStore = create((state) => ({
-  customer: {
-    id: 0,
-    name: "",
-    email: "",
-  },
+  customer: {} as ICustomers,
+
   updateCustomer: (customer: ICustomers) => {
     state({ customer: customer });
   },

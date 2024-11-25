@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Customer {
-  id    Int    @id @unique @default(autoincrement())
+  id    Int    @id @default(autoincrement())
   email String @db.VarChar()
   name  String @db.VarChar()
 
@@ -28,7 +28,7 @@ model Customer {
 }
 
 model Driver {
-  id               Int    @id @unique @default(autoincrement())
+  id               Int    @id @default(autoincrement())
   description      String @db.VarChar()
   minimum_distance Int    @db.Integer()
   name             String @db.VarChar()
@@ -45,7 +45,7 @@ model Driver {
 }
 
 model Assessment {
-  id              Int    @id @unique @default(autoincrement())
+  id              Int    @id @default(autoincrement())
   comment         String @db.VarChar()
   customer_id     Int    @db.Integer()
   driver_id       Int    @db.Integer()
@@ -61,7 +61,7 @@ model Assessment {
 }
 
 model Ride {
-  id          Int    @id @unique @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   customer_id Int    @db.Integer()
   destination String @db.VarChar()
   distance    Float

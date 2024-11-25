@@ -18,6 +18,7 @@
     "strict": true,
     "target": "es2016",
     "typeRoots": ["./node_modules/@types", "@types"],
+    "types": ["node"],
     "paths": {
       "@config/*": ["src/config/*"],
       "@controller/*": ["src/modules/controller/*"],
@@ -30,7 +31,7 @@
       "@schemas/*": ["src/schemas/*"],
       "@service/*": ["src/modules/service/*"],
       "@test/*": ["src/test/*"],
-      "@utils/*": ["src/utils/*"],
+      "@utils/*": ["src/utils/*"]
     },
     "strictPropertyInitialization": false
   }
