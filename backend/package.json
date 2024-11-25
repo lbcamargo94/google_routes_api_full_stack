@@ -11,11 +11,13 @@
     "prettier": "prettier 'src/**/*.ts'",
     "prettier:check": "prettier --check . '!**/*.ts'",
     "prettier:write": "prettier --write . '!**/*.ts'",
+    "prisma:generate": "npx prisma generate",
     "prisma:deploy": "npx prisma migrate deploy",
     "prisma:migrate": "npx prisma migrate dev --name",
     "prisma:reset": "npx prisma migrate reset",
     "prisma:seed": "prisma db push && node prisma/seeds/index.ts",
     "prisma:studio": "npx prisma studio",
+    "start": "node --env-file .env ./build/server.js",
     "test": "jest",
     "update:all": "npm outdated & npm update & npx npm-check-updates -u & npm install"
   },

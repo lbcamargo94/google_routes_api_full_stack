@@ -1,6 +1,4 @@
-// import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { TravelHistory } from "./pages/travelHistory/TravelHistory";
 import { TravelOptions } from "./pages/travelOptions/TravelOptions";
 import { UserCreation } from "./pages/userCreation/UserCreation";
@@ -17,7 +15,6 @@ const App: React.FC = () => (
       <TravelOptions />
       <TravelHistory />
     </div>
-    {/* <ReactQueryDevtools initialIsOpen={true} /> */}
   </QueryClientProvider>
 );
 

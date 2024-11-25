@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc -b && vite build",
+    "commit": "git add . & git status && git commit -m",
+    "commit:count": "git rev-list --all --count",
+    "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview",
-    "commit": "git add . & git status && git commit -m",
-    "commit:count": "git rev-list --all --count"
+    "start": "vite preview --host --port 80"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.0",
