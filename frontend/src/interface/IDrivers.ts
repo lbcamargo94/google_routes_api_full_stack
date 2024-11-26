@@ -3,7 +3,7 @@ interface IDrivers {
   name: string;
   description: string;
   vehicle: string;
-  rating: number;
+  review: number;
   minimum_distance: number;
 }
 

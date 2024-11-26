@@ -31,7 +31,7 @@ function StaticMap() {
           },
         },
         {
-          key: "origin",
+          key: "destination",
           location: {
             lat: estimate.destination.latitude,
             lng: estimate.destination.longitude,
