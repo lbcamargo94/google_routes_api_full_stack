@@ -16,6 +16,8 @@ interface IRides {
 }
 
 interface IEstimateRides {
+  origin_name: string;
+  destination_name: string;
   origin: {
     latitude: number;
     longitude: number;

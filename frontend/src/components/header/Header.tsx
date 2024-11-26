@@ -3,14 +3,12 @@ import "./Header.css";
 
 function Header() {
   return (
-    <div className="header">
-      <div className="logo">
-        {/* <img src={Logo} alt="logo" className="logo-image" /> */}
-      </div>
-      <div className="tittle">
+    <header className="flex flex-col items-center justify-between align-middle min-w-full h-20 bg-blue-950 px-3 py-1 sticky top-0 left-0 shadow z-10">
+      <div className="box-border">
+        {/* <img src={Logo} alt="logo" className="w-full" /> */}
         <h1 className="tittle-text">RIDE REQUEST</h1>
       </div>
-    </div>
+    </header>
   );
 }
 
