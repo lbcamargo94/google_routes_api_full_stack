@@ -13,13 +13,21 @@ import { Label } from "@radix-ui/react-label";
 import { ridesStore } from "@/store/rides";
 import { useState } from "react";
 import { api } from "@/services/api";
+import { ShowError } from "@/components/showError/ShowError";
+import { errorStore } from "@/store/errorsStore";
+import { successStore } from "@/store/successStore";
+import { ShowSuccess } from "@/components/showSuccess/ShowSuccess";
 
 function UserCreation() {
-  const { updateRides } = ridesStore();
+  const { setEstimate } = ridesStore();
+  const { error, setError } = errorStore();
+  const { success, setSuccess } = successStore();
+
   const [customer, setCustomer] = useState<{ name: string; email: string }>({
     name: "",
     email: "",
   });
+
   const [estimate_ride, setEstimateRide] = useState<{
     customer_id: string;
     origin: string;
@@ -30,32 +38,75 @@ function UserCreation() {
     destination: "",
   });
 
-  const handleCreateUser = async () => {
-    try {
-      const response = await api.post("/customer/create_customer", {
-        name: customer.name,
-        email: customer.email,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error("Erro ao criar usuário:", error);
+  const handleCreateUser = async (
+    name: string,
+    email: string
+  ): Promise<void> => {
+    if (!name || name.length === 0) {
+      return setError({ status: true, message: "O nome está inválido." });
     }
+
+    if (!email || email.length === 0) {
+      return setError({ status: true, message: "O email está inválido." });
+    }
+
+    await api
+      .post("/customer/create_customer", {
+        name,
+        email,
+      })
+      .then((response) => {
+        if (response.data) {
+          setSuccess({
+            status: true,
+            message: "Novo usuário foi criado com sucesso",
+          });
+        }
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.error(error);
+        setError({
+          status: true,
+          message: "Falha ao criar um novo usuário.",
+        });
+        return error;
+      });
   };
 
-  const handleCreateEstimateRide = async () => {
-    try {
-      const response = await api.post("/ride/estimate", {
-        customer_id: estimate_ride.customer_id,
-        origin: estimate_ride.origin,
-        destination: estimate_ride.destination,
+  const handleCreateEstimateRide = async ({
+    customer_id,
+    origin,
+    destination,
+  }: {
+    customer_id: string;
+    origin: string;
+    destination: string;
+  }): Promise<void> => {
+    await api
+      .post("/ride/estimate", {
+        customer_id,
+        origin,
+        destination,
+      })
+      .then((response) => {
+        if (response.data) {
+          console.log(response.data.data);
+          setEstimate(response.data.data);
+          setSuccess({
+            status: true,
+            message: "Rota de viagem criada com sucesso",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setError({
+          status: true,
+          message: "Falha ao tentar estimar rota de viagem.",
+        });
       });
-      console.log(response.data);
-      if (typeof updateRides === "function") {
-        updateRides();
-      }
-    } catch (error) {
-      console.error("Erro ao criar estimativa de viagem:", error);
-    }
   };
 
   return (
@@ -125,11 +176,24 @@ function UserCreation() {
               <CardFooter className="flex justify-center">
                 <Button
                   className="bg-green-700"
-                  onClick={() => handleCreateEstimateRide()}
+                  onClick={() => {
+                    handleCreateEstimateRide({
+                      customer_id: estimate_ride.customer_id,
+                      destination: estimate_ride.destination,
+                      origin: estimate_ride.origin,
+                    });
+                    setEstimateRide({
+                      customer_id: "",
+                      origin: "",
+                      destination: "",
+                    });
+                  }}
                 >
                   Estimar Viagem
                 </Button>
               </CardFooter>
+              {error.status && <ShowError />}
+              {success.status && <ShowSuccess />}
             </Card>
           </TabsContent>
           {/* CREATE NEW USERS */}
@@ -176,7 +240,7 @@ function UserCreation() {
                   type="submit"
                   className="bg-green-700"
                   onClick={() => {
-                    handleCreateUser();
+                    handleCreateUser(customer.name, customer.email);
                     setCustomer({
                       name: "",
                       email: "",
@@ -186,6 +250,8 @@ function UserCreation() {
                   Criar Usuário
                 </Button>
               </CardFooter>
+              {error.status && <ShowError />}
+              {success.status && <ShowSuccess />}
             </Card>
           </TabsContent>
         </Tabs>

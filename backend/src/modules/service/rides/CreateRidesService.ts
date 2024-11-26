@@ -17,6 +17,12 @@ class CreateRidesService {
     data: any;
     status: number;
   }> {
+    console.log({
+      customer_id,
+      destination,
+      origin,
+    });
+
     if (!origin || !destination) {
       throw new ApiError(
         "Os dados fornecidos para endereço de origem ou destino são inválidos.",
@@ -35,11 +41,15 @@ class CreateRidesService {
       throw new ApiError("O id de usuário fornecido é inválido.", 400);
     }
 
+    console.log("AQUI");
+
     const googleRoutesApi = new GoogleRoutesApi();
     const calculateRoute = await googleRoutesApi.getRoutes({
       origin,
       destination,
     });
+
+    console.log({ calculateRoute });
 
     if (!calculateRoute) {
       throw new ApiError("Não foi possível calcular a rota.", 400);

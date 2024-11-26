@@ -7,6 +7,9 @@ const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || "";
 type GoogleRoutesResponse = {
   distanceMeters: number;
   duration: string;
+  polyline: {
+    encodedPolyline: string;
+  };
   startLocation: {
     latLng: {
       latitude: number;
@@ -54,13 +57,15 @@ class GoogleRoutesApi {
       trafficModel: "BEST_GUESS",
     };
 
+    console.log(data);
+
     const response = await this.api
       .post("", data, {
         headers: {
           "Content-Type": "application/json",
           "X-Goog-Api-Key": GOOGLE_API_KEY,
           "X-Goog-FieldMask":
-            "routes.legs.distanceMeters,routes.legs.duration,routes.legs.startLocation,routes.legs.endLocation,routes.legs.localizedValues",
+            "routes.legs.distanceMeters,routes.legs.duration,routes.legs.startLocation,routes.legs.endLocation,routes.legs.localizedValues,routes.legs.polyline",
         },
       })
       .then((response) => {

@@ -36,6 +36,9 @@ interface IEstimateRides {
   routeResponse: {
     distanceMeters: number;
     duration: string;
+    polyline: {
+      encodedPolyline: string;
+    };
     startLocation: {
       latLng: {
         latitude: number;

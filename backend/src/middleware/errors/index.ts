@@ -8,7 +8,7 @@ export default class HandleError {
     error: Error & Partial<ApiError>,
     _request: Request,
     response: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Response | void | any {
     const statusCode = error.statusCode ?? 500;
 

@@ -1,23 +1,20 @@
-// import { ridesStore } from "@/store/rides";
-// import { useEffect, useState } from "react";
+import { IEstimateRides } from "@/interface/IRides";
+import { ridesStore } from "@/store/rides";
+
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function StaticMap() {
-  // const [latitude, setLatitude] = useState<string>("");
-  // const [longitude, setLongitude] = useState<string>("");
+  const { estimate } = ridesStore();
 
-  // const ridesStore();
+  const { routeResponse, origin, destination } = estimate as IEstimateRides;
 
-  // useEffect(() => {
-  //   const
-  // }, [latitude]);
-
-  // const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${latitude}%2C-23.55052%2C-46.543308%2C-23.46052&layer=mapnik`;
+  const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?size=600x400&path=enc:${routeResponse.polyline}&markers=color:red|${origin}|${destination}&key=${GOOGLE_MAPS_API_KEY}`;
 
   return (
     <div>
       <h1>Mapa Estático OpenStreetMap</h1>
       <iframe
-        // src={mapUrl}
+        src={mapUrl}
         style={{ width: "100%", height: "400px", border: "none" }}
         title="OpenStreetMap"
       />

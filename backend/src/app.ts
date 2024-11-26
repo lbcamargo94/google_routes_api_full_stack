@@ -5,7 +5,7 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import path from "node:path";
-import { CorsOptions } from "@config/server/CorsConfig";
+// import { CorsOptions } from "@config/server/CorsConfig";
 import { Routes } from "./routes";
 
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
@@ -13,8 +13,8 @@ dotenv.config({ path: path.join(__dirname, "..", ".env") });
 const { handleError } = new HandleError();
 const app: express.Express = express();
 
-app.options("*", cors(CorsOptions));
-// app.use(cors(CorsOptions));
+// app.options("*", cors(CorsOptions));
+app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(Routes);

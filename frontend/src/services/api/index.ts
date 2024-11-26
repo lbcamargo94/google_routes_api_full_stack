@@ -4,7 +4,7 @@ const BACKEND_BASE_URL = "http://localhost:3001";
 // const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || "";
 
 const api = axios.create({
-  baseURL: `${BACKEND_BASE_URL}`,
+  baseURL: BACKEND_BASE_URL,
 });
 
 export { api };
