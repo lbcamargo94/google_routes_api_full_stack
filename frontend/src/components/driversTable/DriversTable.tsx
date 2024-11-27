@@ -25,10 +25,9 @@ function DriversTable({
   data: DataTableProps[];
   headers: string[];
 }) {
-  const { driver, setDrivers, clearDrivers } = driversStore();
-  const { customer_id, clearCustomerId } = customersStore();
-  const { estimate, clearEstimate } = ridesStore();
-  const { clearRides } = ridesStore();
+  const { driver, setDrivers } = driversStore();
+  const { customer_id } = customersStore();
+  const { estimate } = ridesStore();
   const { setError } = errorStore();
   const { setSuccess } = successStore();
 
@@ -53,18 +52,6 @@ function DriversTable({
     confirmRide();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [driver]);
-
-  const handleScroll = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 50;
-      const elementTop = element.getBoundingClientRect().top;
-      window.scrollBy({
-        top: elementTop - offset,
-        behavior: "smooth",
-      });
-    }
-  };
 
   const handleConfirmRide = async ({
     customer_id,
@@ -128,12 +115,6 @@ function DriversTable({
             status: true,
             message: "Viagem confirmada com sucesso 🎉!",
           });
-          if (driver) {
-            clearDrivers();
-          }
-          clearEstimate();
-          clearRides();
-          handleScroll("travel-history");
           return response.data;
         }
       })
@@ -142,12 +123,6 @@ function DriversTable({
           status: true,
           message: "Falha ao confirmar a viagem.😒",
         });
-        if (driver) {
-          clearDrivers();
-        }
-        clearEstimate();
-        clearRides();
-        clearCustomerId();
         return error;
       });
   };

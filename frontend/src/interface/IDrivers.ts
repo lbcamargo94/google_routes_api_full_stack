@@ -8,4 +8,9 @@ interface IDrivers {
   value: number;
 }
 
-export type { IDrivers };
+interface IDirversList {
+  id: number;
+  name: string;
+}
+
+export type { IDrivers, IDirversList };

@@ -7,4 +7,9 @@ interface IDrivers {
   vehicle: string;
 }
 
-export type { IDrivers };
+interface IListDrivers {
+  id: number;
+  name: string;
+}
+
+export type { IDrivers, IListDrivers };

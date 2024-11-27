@@ -1,57 +1,54 @@
+import { FormsHistory } from "@/components/formsHistory/FormsHistory";
 import { HistoryTable } from "@/components/historyTable/HistoryTable";
-import type { IHistory } from "@/interface/IHistory";
+import { api } from "@/services/api";
+import { driversStore } from "@/store/drivers";
+import { errorStore } from "@/store/errorsStore";
+import { historyStore } from "@/store/history";
+import { useEffect } from "react";
 
 function TravelHistory() {
-  const data_list: IHistory[] = [
-    {
-      id: 81,
-      date: "2024-11-27T03:48:27.731Z",
-      origin: "Amparo, SP",
-      destination: "Pedreira, SP",
-      distance: 16798,
-      duration: "null",
-      driver: {
-        id: 1,
-        name: "Homer Simpson",
-      },
-      value: 41.99,
-    },
-    {
-      id: 80,
-      date: "2024-11-27T03:44:41.054Z",
-      origin: "Amparo, SP",
-      destination: "Pedreira, SP",
-      distance: 16798,
-      duration: "null",
-      driver: {
-        id: 3,
-        name: "James Bond",
-      },
-      value: 167.98,
-    },
-    {
-      id: 79,
-      date: "2024-11-27T03:44:40.928Z",
-      origin: "Amparo, SP",
-      destination: "Pedreira, SP",
-      distance: 16798,
-      duration: "null",
-      driver: {
-        id: 3,
-        name: "James Bond",
-      },
-      value: 167.98,
-    },
-  ];
+  const { setError } = errorStore();
+  const { setDriversList } = driversStore();
+  const { history } = historyStore();
+
+  useEffect(() => {
+    const fetchDriversList = async () => {
+      await handleRequestDriversListApi();
+    };
+
+    fetchDriversList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleRequestDriversListApi = async (): Promise<void> => {
+    await api
+      .get("/driver/all_drivers")
+      .then((response) => {
+        if (response.data) {
+          setDriversList(response.data);
+          return response.data;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setError({
+          status: true,
+          message: error.response.data.message,
+        });
+        return error;
+      });
+  };
 
   return (
     <div
-      id="travel-history"
+      id="initial-page"
       className="flex align-middle justify-start items-center flex-col p-2 h-[550px] w-full box-border"
     >
       <h1 className="text-lg font-medium p-2 m-2">Histórico de Viagens</h1>
-      <HistoryTable data={data_list} />
+      <FormsHistory />
+      <HistoryTable key={"unique-key"} data={history} />
     </div>
   );
 }
+
 export { TravelHistory };

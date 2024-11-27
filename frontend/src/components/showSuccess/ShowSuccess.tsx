@@ -12,7 +12,7 @@ function ShowSuccess() {
   }, [success, clearSuccess]);
 
   return (
-    <span className="flex justify-center items-center mx-auto p-2 bg-green-200 text-center bottom-0 left-0 right-0 z-20 absolute text-green-950">
+    <span className="flex justify-center items-center mx-auto p-2 bg-green-200 text-center text-green-950 w-full max-w-[400px] sticky top-0 left-0 z-50">
       {success.message}
       <Button
         type="button"

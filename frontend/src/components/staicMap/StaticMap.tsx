@@ -11,6 +11,9 @@ import {
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
+
+console.log("StaticMap", GOOGLE_API_KEY);
+
 // const origin = { lat: -23.5505, lng: -46.6333 }; // Exemplo: São Paulo, SP
 
 type Poi = { key: string; location: google.maps.LatLngLiteral };
@@ -69,14 +72,14 @@ function StaticMap() {
         <Map
           defaultZoom={zoom}
           defaultCenter={defaultCenterMap} // Exemplo: São Paulo, SP
-          onCenterChanged={(event: MapCameraChangedEvent) =>
-            console.log(
-              "center changed:",
-              event.detail.center,
-              "zoom:",
-              event.detail.zoom
-            )
-          }
+          // onCenterChanged={(event: MapCameraChangedEvent) =>
+          //   console.log(
+          //     "center changed:",
+          //     event.detail.center,
+          //     "zoom:",
+          //     event.detail.zoom
+          //   )
+          // }
           mapId="google-map"
           style={{ height: "400px", width: "100%" }}
           onCameraChanged={(ev: MapCameraChangedEvent) =>

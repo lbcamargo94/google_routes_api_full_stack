@@ -57,8 +57,6 @@ class GoogleRoutesApi {
       trafficModel: "BEST_GUESS",
     };
 
-    console.log(data);
-
     const response = await this.api
       .post("", data, {
         headers: {
@@ -77,6 +75,7 @@ class GoogleRoutesApi {
         return response.data;
       })
       .catch((error) => {
+        10;
         console.error(error.response.data);
         throw new ApiError(
           `${error.response.data.message}`,

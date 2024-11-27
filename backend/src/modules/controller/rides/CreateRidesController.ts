@@ -16,12 +16,6 @@ class CreateRidesController {
       destination: string;
     } = request.body;
 
-    console.log({
-      customer_id,
-      destination,
-      origin,
-    });
-
     const createRidesService = new CreateRidesService();
     const result = await createRidesService.CreateRides({
       customer_id,

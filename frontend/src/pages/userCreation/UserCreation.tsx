@@ -84,7 +84,7 @@ function UserCreation() {
       .catch((error) => {
         setError({
           status: true,
-          message: "Falha ao criar um novo usuário.",
+          message: `${error.response.data.message}`,
         });
         return error;
       });
@@ -127,7 +127,6 @@ function UserCreation() {
         }
       })
       .catch((error) => {
-        console.log(error);
         console.error(error);
         setEstimate(null);
         clearCustomerId();
@@ -139,7 +138,7 @@ function UserCreation() {
         clearDrivers();
         setError({
           status: true,
-          message: "Falha ao tentar estimar rota de viagem.",
+          message: `${error.response.data.message}`,
         });
       });
   };

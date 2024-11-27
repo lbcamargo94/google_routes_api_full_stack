@@ -4,7 +4,7 @@ interface IHistory {
   origin: string;
   destination: string;
   distance: number;
-  duration: string | null;
+  duration: string;
   driver: {
     id: number;
     name: string;

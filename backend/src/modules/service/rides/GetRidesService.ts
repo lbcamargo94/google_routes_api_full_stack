@@ -15,8 +15,6 @@ class GetRidesService {
     data: any;
     status: number;
   }> {
-    console.log(customer_id, filter);
-
     if (!customer_id) {
       throw new ApiError("O id de usuário informado é inválido.", 400);
     }
@@ -65,7 +63,7 @@ class GetRidesService {
           origin: currentValue.origin,
           destination: currentValue.destination,
           distance: currentValue.distance,
-          duration: Number(currentValue.duration),
+          duration: currentValue.duration,
           driver: {
             id: currentValue.drivers.id,
             name: currentValue.drivers.name,
@@ -83,7 +81,7 @@ class GetRidesService {
         origin: string;
         destination: string;
         distance: number;
-        duration: number;
+        duration: string;
         driver: {
           id: number;
           name: string;
