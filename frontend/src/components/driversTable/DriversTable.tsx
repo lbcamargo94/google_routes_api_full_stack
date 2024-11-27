@@ -54,6 +54,18 @@ function DriversTable({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [driver]);
 
+  const handleScroll = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 50;
+      const elementTop = element.getBoundingClientRect().top;
+      window.scrollBy({
+        top: elementTop - offset,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const handleConfirmRide = async ({
     customer_id,
     destination,
@@ -121,6 +133,7 @@ function DriversTable({
           }
           clearEstimate();
           clearRides();
+          handleScroll("travel-history");
           return response.data;
         }
       })

@@ -8,6 +8,7 @@ import { ShowSuccess } from "@/components/showSuccess/ShowSuccess";
 import { errorStore } from "./store/errorsStore";
 import { successStore } from "./store/successStore";
 import "./css/App.css";
+import Baseboard from "./pages/baseboard/Baseboard";
 
 const queryClient = new QueryClient();
 
@@ -19,11 +20,12 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <div className="app">
         <Header />
+        {error.status && <ShowError />}
+        {success.status && <ShowSuccess />}
         <UserCreation />
         <TravelOptions />
         <TravelHistory />
-        {error.status && <ShowError />}
-        {success.status && <ShowSuccess />}
+        <Baseboard />
       </div>
     </QueryClientProvider>
   );

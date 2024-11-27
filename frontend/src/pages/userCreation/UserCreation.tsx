@@ -43,6 +43,18 @@ function UserCreation() {
     destination: "",
   });
 
+  const handleScroll = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 50;
+      const elementTop = element.getBoundingClientRect().top;
+      window.scrollBy({
+        top: elementTop - offset,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const handleCreateUser = async (
     name: string,
     email: string
@@ -111,6 +123,7 @@ function UserCreation() {
             origin: "",
             destination: "",
           });
+          handleScroll("travel-options");
         }
       })
       .catch((error) => {

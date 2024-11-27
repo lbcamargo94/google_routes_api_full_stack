@@ -49,7 +49,7 @@ function TravelOptions() {
   return (
     <div
       id="travel-options"
-      className="flex align-middle justify-start items-center flex-col p-2 min-h-[550px] w-full box-border bg-blue-950 text-slate-50"
+      className="flex align-middle justify-start items-center flex-col p-2 w-full box-border bg-blue-950 text-slate-50"
     >
       <h1 className="text-lg font-medium p-2 m-2">Opções de Rotas</h1>
       {!estimate?.destination?.latitude && (
