@@ -13,17 +13,22 @@ import { Label } from "@radix-ui/react-label";
 import { ridesStore } from "@/store/rides";
 import { useState } from "react";
 import { api } from "@/services/api";
-import { ShowError } from "@/components/showError/ShowError";
 import { errorStore } from "@/store/errorsStore";
 import { successStore } from "@/store/successStore";
-import { ShowSuccess } from "@/components/showSuccess/ShowSuccess";
+import { driversStore } from "@/store/drivers";
+import { customersStore } from "@/store/customers";
 
 function UserCreation() {
   const { setEstimate } = ridesStore();
-  const { error, setError } = errorStore();
-  const { success, setSuccess } = successStore();
+  const { setError } = errorStore();
+  const { setSuccess } = successStore();
+  const { clearDrivers } = driversStore();
+  const { setCustomerId, clearCustomerId } = customersStore();
 
-  const [customer, setCustomer] = useState<{ name: string; email: string }>({
+  const [newCustomer, setNewCustomer] = useState<{
+    name: string;
+    email: string;
+  }>({
     name: "",
     email: "",
   });
@@ -62,11 +67,9 @@ function UserCreation() {
             message: "Novo usuário foi criado com sucesso",
           });
         }
-        console.log(response.data);
         return response.data;
       })
       .catch((error) => {
-        console.error(error);
         setError({
           status: true,
           message: "Falha ao criar um novo usuário.",
@@ -84,6 +87,7 @@ function UserCreation() {
     origin: string;
     destination: string;
   }): Promise<void> => {
+    setEstimate(null);
     await api
       .post("/ride/estimate", {
         customer_id,
@@ -92,16 +96,34 @@ function UserCreation() {
       })
       .then((response) => {
         if (response.data) {
-          console.log(response.data.data);
-          setEstimate(response.data.data);
+          setEstimate({
+            ...response.data.data,
+            origin_name: estimate_ride.origin,
+            destination_name: estimate_ride.destination,
+          });
           setSuccess({
             status: true,
             message: "Rota de viagem criada com sucesso",
           });
+          setCustomerId(estimate_ride.customer_id);
+          setEstimateRide({
+            customer_id: "",
+            origin: "",
+            destination: "",
+          });
         }
       })
       .catch((error) => {
+        console.log(error);
         console.error(error);
+        setEstimate(null);
+        clearCustomerId();
+        setEstimateRide({
+          customer_id: "",
+          origin: "",
+          destination: "",
+        });
+        clearDrivers();
         setError({
           status: true,
           message: "Falha ao tentar estimar rota de viagem.",
@@ -110,8 +132,11 @@ function UserCreation() {
   };
 
   return (
-    <div className="w-full flex align-middle justify-start flex-col p-5 h-[550px]">
-      <div className="text-lg font-medium">Escolha uma das abas</div>
+    <div
+      id="initial-page"
+      className="flex align-middle justify-start items-center flex-col p-2 h-[550px] w-full box-border"
+    >
+      <h1 className="text-lg font-medium p-2 m-2">Escolha uma das abas</h1>
       <div className="flex flex-col align-middle items-center	justify-center w-full mx-auto m-1">
         <Tabs
           defaultValue="rides"
@@ -121,8 +146,8 @@ function UserCreation() {
             <TabsTrigger value="rides">Viagem</TabsTrigger>
             <TabsTrigger value="users">Usuários</TabsTrigger>
           </TabsList>
-          <TabsContent value="rides" className="p-1 h-min-[400px]">
-            <Card className="rounded-md ">
+          <TabsContent value="rides" className="p-1 max-h-[370px]">
+            <Card className="rounded-md shadow-md ">
               <CardHeader>
                 <CardTitle>Viagem</CardTitle>
                 <CardDescription>Consulte sua viagem aqui.</CardDescription>
@@ -133,12 +158,12 @@ function UserCreation() {
                   <Input
                     id="customer-id"
                     placeholder="digite o ID do usuário"
+                    value={estimate_ride.customer_id}
                     onChange={(prevEstimate) => {
                       setEstimateRide({
                         ...estimate_ride,
                         customer_id: prevEstimate.target.value,
                       });
-                      console.log(estimate_ride);
                     }}
                   />
                 </div>
@@ -153,7 +178,6 @@ function UserCreation() {
                         ...estimate_ride,
                         origin: prevEstimate.target.value,
                       });
-                      console.log(estimate_ride);
                     }}
                   />
                 </div>
@@ -168,20 +192,20 @@ function UserCreation() {
                         ...estimate_ride,
                         destination: prevEstimate.target.value,
                       });
-                      console.log(estimate_ride);
                     }}
                   />
                 </div>
               </CardContent>
               <CardFooter className="flex justify-center">
                 <Button
-                  className="bg-green-700"
+                  className="bg-green-700 cursor-pointer"
                   onClick={() => {
                     handleCreateEstimateRide({
                       customer_id: estimate_ride.customer_id,
                       destination: estimate_ride.destination,
                       origin: estimate_ride.origin,
                     });
+                    setCustomerId(estimate_ride.customer_id);
                     setEstimateRide({
                       customer_id: "",
                       origin: "",
@@ -192,13 +216,14 @@ function UserCreation() {
                   Estimar Viagem
                 </Button>
               </CardFooter>
-              {error.status && <ShowError />}
-              {success.status && <ShowSuccess />}
             </Card>
           </TabsContent>
           {/* CREATE NEW USERS */}
-          <TabsContent value="users" className="p-1 h-min-[350px]">
-            <Card className="rounded-md">
+          <TabsContent
+            value="users"
+            className="p-1 flex flex-col justify-around box-border"
+          >
+            <Card className="rounded-md flex flex-col justify-around ">
               <CardHeader>
                 <CardTitle>Usuários</CardTitle>
                 <CardDescription>Crie um novo usuário aqui.</CardDescription>
@@ -209,13 +234,12 @@ function UserCreation() {
                   <Input
                     id="customer-name"
                     placeholder="digite o nome do usuário"
-                    value={customer.name}
+                    value={newCustomer.name}
                     onChange={(prevCustomer) => {
-                      setCustomer({
-                        ...customer,
+                      setNewCustomer({
+                        ...newCustomer,
                         name: prevCustomer.target.value,
                       });
-                      console.log(customer);
                     }}
                   />
                 </div>
@@ -224,13 +248,12 @@ function UserCreation() {
                   <Input
                     id="customer-email"
                     placeholder="digite o email do usuário"
-                    value={customer.email}
+                    value={newCustomer.email}
                     onChange={(prevCustomer) => {
-                      setCustomer({
-                        ...customer,
+                      setNewCustomer({
+                        ...newCustomer,
                         email: prevCustomer.target.value,
                       });
-                      console.log(customer);
                     }}
                   />
                 </div>
@@ -238,10 +261,10 @@ function UserCreation() {
               <CardFooter className="flex justify-center">
                 <Button
                   type="submit"
-                  className="bg-green-700"
+                  className="bg-green-700 cursor-pointer"
                   onClick={() => {
-                    handleCreateUser(customer.name, customer.email);
-                    setCustomer({
+                    handleCreateUser(newCustomer.name, newCustomer.email);
+                    setNewCustomer({
                       name: "",
                       email: "",
                     });
@@ -250,8 +273,6 @@ function UserCreation() {
                   Criar Usuário
                 </Button>
               </CardFooter>
-              {error.status && <ShowError />}
-              {success.status && <ShowSuccess />}
             </Card>
           </TabsContent>
         </Tabs>

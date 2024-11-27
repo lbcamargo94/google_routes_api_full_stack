@@ -3,17 +3,18 @@ import { create } from "zustand";
 
 type RidesStore = {
   ride: IRides | null;
-  setRides: (ride: IRides) => void;
-  crearRides: () => void;
+  setRides: (ride: IRides | null) => void;
+  clearRides: () => void;
+
   estimate: IEstimateRides | null;
-  setEstimate: (estimate: IEstimateRides) => void;
+  setEstimate: (estimate: IEstimateRides | null) => void;
   clearEstimate: () => void;
 };
 
 const ridesStore = create<RidesStore>((set) => ({
   ride: null,
   setRides: (ride) => set({ ride: ride }),
-  crearRides: () => set({ ride: {} as IRides }),
+  clearRides: () => set({ ride: null }),
   estimate: null,
   setEstimate: (estimate) => set({ estimate: estimate }),
   clearEstimate: () => set({ estimate: null }),

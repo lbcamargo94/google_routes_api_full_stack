@@ -1,18 +1,14 @@
 interface IRides {
-  id: number;
+  customer_id: string;
   destination: string;
   distance: number;
-  duration: number;
-  origin: string;
-  price: number;
   driver: {
     id: number;
     name: string;
   };
-  customer: {
-    id: number;
-    name: string;
-  };
+  duration: string;
+  origin: string;
+  value: number;
 }
 
 interface IEstimateRides {

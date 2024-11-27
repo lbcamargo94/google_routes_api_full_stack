@@ -6,11 +6,12 @@
   height: 100%;
   margin: 0 auto;
   text-align: center;
-  background-color: #c1c1c1ca;
+  background-color: rgb(23, 37, 84);
 }
 
 .app {
+  background-color: #ffffff;
   max-width: 1280px;
   margin: 0 auto;
-  background-color: #ffffff;
+  border: none
 }

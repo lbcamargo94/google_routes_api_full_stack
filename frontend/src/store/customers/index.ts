@@ -1,12 +1,15 @@
-import type { ICustomers } from "@/interface/ICustomers";
 import { create } from "zustand";
 
-const customersStore = create((state) => ({
-  customer: {} as ICustomers,
+type CustomersStore = {
+  customer_id: string;
+  setCustomerId: (id: string) => void;
+  clearCustomerId: () => void;
+};
 
-  updateCustomer: (customer: ICustomers) => {
-    state({ customer: customer });
-  },
+const customersStore = create<CustomersStore>((set) => ({
+  customer_id: "",
+  setCustomerId: (id) => set({ customer_id: id }),
+  clearCustomerId: () => set({ customer_id: "" }),
 }));
 
 export { customersStore };

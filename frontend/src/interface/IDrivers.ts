@@ -3,8 +3,9 @@ interface IDrivers {
   name: string;
   description: string;
   vehicle: string;
-  review: number;
-  minimum_distance: number;
+  rating: number;
+  comment: string;
+  value: number;
 }
 
 export type { IDrivers };

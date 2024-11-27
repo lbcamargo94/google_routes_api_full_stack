@@ -1,12 +1,16 @@
 import type { IDrivers } from "@/interface/IDrivers";
 import { create } from "zustand";
 
-const driversStore = create((state) => ({
-  driver: {} as IDrivers,
+type DriversStore = {
+  driver: IDrivers | null;
+  setDrivers: (driver: IDrivers | null) => void;
+  clearDrivers: () => void;
+};
 
-  updateCustomer: (driver: IDrivers) => {
-    state({ driver: driver });
-  },
+const driversStore = create<DriversStore>((set) => ({
+  driver: null,
+  setDrivers: (driver) => set({ driver: driver }),
+  clearDrivers: () => set({ driver: null }),
 }));
 
 export { driversStore };

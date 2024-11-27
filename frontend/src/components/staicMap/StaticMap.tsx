@@ -10,7 +10,7 @@ import {
 } from "@vis.gl/react-google-maps";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 // const origin = { lat: -23.5505, lng: -46.6333 }; // Exemplo: São Paulo, SP
 
 type Poi = { key: string; location: google.maps.LatLngLiteral };
@@ -19,9 +19,22 @@ function StaticMap() {
   const { estimate } = ridesStore();
 
   const [locations, setLocations] = useState<Poi[]>([]);
+  const [defaultCenterMap, setDefaultCenterMap] =
+    useState<google.maps.LatLngLiteral>({
+      lat: -23.5505,
+      lng: -46.6333,
+    });
+  const [zoom, setZoom] = useState(10);
 
   useEffect(() => {
     if (estimate) {
+      setDefaultCenterMap({
+        lat: estimate.origin.latitude,
+        lng: estimate.origin.longitude,
+      });
+
+      setZoom(12);
+
       return setLocations([
         {
           key: "origin",
@@ -45,13 +58,25 @@ function StaticMap() {
 
   return (
     <APIProvider
-      apiKey={GOOGLE_MAPS_API_KEY}
+      apiKey={GOOGLE_API_KEY}
       onLoad={() => console.log("Maps API has loaded.")}
     >
-      <div className="flex flex-col justify-center mx-auto h-[600px] w-full w-max-[600px] rounded overflow-hidden p-5 box-border">
+      <div
+        id="google-map"
+        className="flex flex-col justify-center mx-auto max-h-[300px] w-full p-3 box-border m-2"
+      >
+        <h1 className="text-md"> Mapa Interativo</h1>
         <Map
-          defaultZoom={10}
-          defaultCenter={{ lat: -23.5505, lng: -46.6333 }} // Sydney, exemplo
+          defaultZoom={zoom}
+          defaultCenter={defaultCenterMap} // Exemplo: São Paulo, SP
+          onCenterChanged={(event: MapCameraChangedEvent) =>
+            console.log(
+              "center changed:",
+              event.detail.center,
+              "zoom:",
+              event.detail.zoom
+            )
+          }
           mapId="google-map"
           style={{ height: "400px", width: "100%" }}
           onCameraChanged={(ev: MapCameraChangedEvent) =>
