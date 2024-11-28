@@ -1,4 +1,5 @@
-import { database } from "@database/connection";
+const { database } = require("@database/connection");
+
 import { DataSeedCustomers } from "./customers";
 import { DataSeedDrivers } from "./drivers";
 import { DataSeedRides } from "./rides";

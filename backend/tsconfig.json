@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["ES6", "ESNext"],
+    "lib": ["ESNext"],
     "module": "commonjs",
     "outDir": "./build",
     "removeComments": true,

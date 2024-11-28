@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20.15.0
 
 WORKDIR /app
 
@@ -15,4 +15,4 @@ RUN npm run build
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db push && node prisma/seeds/index.ts && npm start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db push && npm start"]
