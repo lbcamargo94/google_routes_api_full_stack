@@ -1,7 +1,7 @@
 {
   "name": "my-vue-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
@@ -10,7 +10,14 @@
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "vite preview --host --port 80"
+    "start": "vite preview --host --port 80",
+    "dc:up": "docker-compose up",
+    "dc:up:d": "docker-compose up",
+    "dc:down": "docker-compose down",
+    "dc:down:v": "docker-compose down -v",
+    "dc:logs": "docker-compose logs",
+    "dc:net": "docker network ls",
+    "dc:buld": "docker-compose up --build"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.0",
