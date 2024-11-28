@@ -17,13 +17,14 @@ import { errorStore } from "@/store/errorsStore";
 import { successStore } from "@/store/successStore";
 import { driversStore } from "@/store/drivers";
 import { customersStore } from "@/store/customers";
+import { handleScroll } from "@/utils/handleScroll";
 
 function UserCreation() {
   const { setEstimate } = ridesStore();
   const { setError } = errorStore();
   const { setSuccess } = successStore();
   const { clearDrivers } = driversStore();
-  const { setCustomerId, clearCustomerId } = customersStore();
+  const { setCustomerId } = customersStore();
 
   const [newCustomer, setNewCustomer] = useState<{
     name: string;
@@ -42,18 +43,6 @@ function UserCreation() {
     origin: "",
     destination: "",
   });
-
-  const handleScroll = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 50;
-      const elementTop = element.getBoundingClientRect().top;
-      window.scrollBy({
-        top: elementTop - offset,
-        behavior: "smooth",
-      });
-    }
-  };
 
   const handleCreateUser = async (
     name: string,
@@ -129,7 +118,6 @@ function UserCreation() {
       .catch((error) => {
         console.error(error);
         setEstimate(null);
-        clearCustomerId();
         setEstimateRide({
           customer_id: "",
           origin: "",

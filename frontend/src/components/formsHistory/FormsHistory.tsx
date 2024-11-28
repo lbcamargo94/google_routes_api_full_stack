@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -21,21 +21,27 @@ function FormsHistory() {
   const [search, setSearch] = useState<string>(" ");
   const [select, setSelect] = useState<string>(" ");
 
-  const { driverList } = driversStore();
+  const { driverList, driver } = driversStore();
   const { customer_id } = customersStore();
   const { setHistory } = historyStore();
   const { setError } = errorStore();
   const { setSuccess } = successStore();
 
+  useEffect(() => {
+    if (customer_id && driver) {
+      handleRequestHistoryApi();
+    }
+  }, [customer_id, driver]);
+
   const handleRequestHistoryApi = async (): Promise<void> => {
-    if (!customer_id) {
+    if (!customer_id && !search) {
       return setError({
         status: true,
         message: "O id do usuário está inválido.",
       });
     }
 
-    if (!select || select === "none") {
+    if (!select) {
       return setError({
         status: true,
         message: "O id do motorista está inválido.",
@@ -53,18 +59,22 @@ function FormsHistory() {
       (driver) => driver.id === Number(select)
     );
 
-    console.log("FormsHistory", { customer_id, filterDriverId });
+    const filterParams = filterDriverId?.id
+      ? `?driver_id=${filterDriverId.id}`
+      : "?driver_id=";
+
+    const valid_customer_id = customer_id ? customer_id : search;
 
     await api
-      .get(`/ride/${customer_id}?driver_id=${filterDriverId?.id || ""}`)
+      .get(`/ride/${valid_customer_id}${filterParams}`)
       .then((response) => {
-        if (response.data) {
+        if (response) {
           setSuccess({
             status: true,
             message: response.data.message,
           });
-          setHistory(response.data.data);
-          setSearch("");
+
+          setHistory(response.data.data.rides);
           return response.data;
         }
       })
@@ -74,7 +84,6 @@ function FormsHistory() {
           status: true,
           message: error.response.data.message,
         });
-        setSearch("");
         return error;
       });
   };
@@ -88,7 +97,7 @@ function FormsHistory() {
             id="input-search"
             type="email"
             placeholder="Digite um ID de usuário."
-            className="max-w-[400px]"
+            className="w-full"
             value={search}
             onChange={({ target }) => {
               setSearch(target.value);
@@ -98,8 +107,6 @@ function FormsHistory() {
 
         <Select
           onValueChange={(value) => {
-            console.log("SELECT VALUE", value);
-
             setSelect(value);
           }}
         >
@@ -107,7 +114,7 @@ function FormsHistory() {
             <SelectValue placeholder="Motorista" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="none">Vazio</SelectItem>
+            <SelectItem value={" "}>Vazio</SelectItem>
             {driverList &&
               driverList.map((driver) => (
                 <SelectItem key={driver.id} value={driver.id.toString()}>
@@ -121,8 +128,9 @@ function FormsHistory() {
           type="submit"
           className="bg-green-700 cursor-pointer w-[7.5rem] text-wrap"
           onClick={() => {
+            console.log("CHEGUEi");
+
             handleRequestHistoryApi();
-            setSearch("");
           }}
         >
           Pesquisar

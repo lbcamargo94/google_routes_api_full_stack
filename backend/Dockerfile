@@ -3,16 +3,16 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package*.json ./
-COPY prisma ./prisma/
 
 RUN npm install
 
+COPY prisma ./prisma
 COPY . .
+
+RUN npx prisma generate
 
 RUN npm run build
 
-RUN npm run prisma:generate
-
 EXPOSE 8080
 
-CMD ["npm", "run prisma:deploy && npm run prisma:reset && npm start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db push && node prisma/seeds/index.ts && npm start"]

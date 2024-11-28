@@ -7,6 +7,7 @@ import { errorStore } from "@/store/errorsStore";
 import { successStore } from "@/store/successStore";
 import { api } from "@/services/api";
 import { useEffect } from "react";
+import { handleScroll } from "@/utils/handleScroll";
 
 type DataTableProps = {
   id: number;
@@ -92,10 +93,10 @@ function DriversTable({
         message: "O nome de Partida está inválido.",
       });
     }
-    if (!value || typeof distance !== "number" || value === 0) {
+    if (!value || typeof value !== "number" || value === 0) {
       return setError({
         status: true,
-        message: "O nome de Partida está inválido.",
+        message: "O valor está inválido.",
       });
     }
 
@@ -136,13 +137,15 @@ function DriversTable({
         <thead className="text-sm text-black m-2 uppercase h-7 p-2 w-full bg-gray-500">
           <tr className="space-x-2">
             {headers.map((title: string) => (
-              <td className="p-2 border border-slate-100">{title}</td>
+              <td key={title} className="p-2 border border-slate-100">
+                {title}
+              </td>
             ))}
           </tr>
         </thead>
         <tbody className="text-xs text-gray-600 m-2 h-7 p-2 w-full bg-gray-300">
           {data.map((item) => (
-            <tr className="p-2 border border-slate-100 text-sm">
+            <tr key={item.id} className="p-2 border border-slate-100 text-sm">
               <td className="text-center p-1 border border-slate-100">
                 {item.id}
               </td>
@@ -166,7 +169,7 @@ function DriversTable({
                 <Button
                   type="submit"
                   className={"bg-green-700 cursor-pointer w-[80%] text-wrap"}
-                  onClick={() =>
+                  onClick={() => {
                     setDrivers({
                       id: item.id,
                       name: item.name,
@@ -175,8 +178,10 @@ function DriversTable({
                       rating: item.rating,
                       comment: item.comment,
                       value: item.value,
-                    })
-                  }
+                    });
+
+                    handleScroll("travel-history");
+                  }}
                 >
                   {driver?.id === item.id ? "Escolhido" : "Escolher"}
                 </Button>

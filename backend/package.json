@@ -19,7 +19,14 @@
     "prisma:studio": "npx prisma studio",
     "start": "node --env-file .env ./build/server.js",
     "test": "jest",
-    "update:all": "npm outdated & npm update & npx npm-check-updates -u & npm install"
+    "update:all": "npm outdated & npm update & npx npm-check-updates -u & npm install",
+    "dc-up": "docker-compose up",
+    "dc-up-d": "docker-compose up",
+    "dc-down": "docker-compose down",
+    "dc-down-v": "docker-compose down -v",
+    "dc-logs": "docker-compose logs",
+    "dc-net": "docker network ls",
+    "dc-buld": "docker-compose up --build"
   },
   "prisma": {
     "seed": "ts-node -r tsconfig-paths/register prisma/seeds/index.ts"
